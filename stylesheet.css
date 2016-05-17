@@ -1,0 +1,17 @@
+.score-table {
+  border-style: : solid;
+  border-color: black;
+
+
+}
+body {
+background-color: grey;
+
+}
+table{
+border: 1px solid black;
+}
+th, td {
+  border: 1px solid black;
+  padding: 15px;
+}

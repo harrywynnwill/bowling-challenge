@@ -6,6 +6,21 @@ $(document).ready(function(){
   $('#balls').text(scoreCard.balls());
   $('#total').text(scoreCard.playerTotal());
 
+
+  function addScoreToTable(score) {
+    var table = document.getElementById('score-table');
+    for (var i = 0; scoreCard.playerLog().length; i++){
+
+      var scoreToAdd = scoreCard.playerLog()[i];
+      var cell = document.createElement('td');
+      cell.innerHTML = scoreToAdd;
+        row.appendChild(cell);
+    }
+    table.appendChild(row);
+  }
+
+
+
   function updateScore(){
     $('#score').text(scoreCard.lastBowl());
   }
@@ -49,6 +64,8 @@ function displayScore(){
     updateBalls();
     displayScore();
     updateTotal();
+    addScoreToTable(5);
+
   });
 
 

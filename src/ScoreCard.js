@@ -1,11 +1,13 @@
 function ScoreCard() {
-  this._frames = 10;
+  this._frames = 9;
   this._balls = 2;
   this._strike = false;
+  this._strikeBonusOne = false;
+  this._strikeBonusTwo = false;
   this._spare = false;
   this._playerLog = [];
-  var strike = 0;
-
+  var strikeBall = 0;
+  var strikeBall = 2;
 
 }
 
@@ -78,33 +80,102 @@ ScoreCard.prototype.resetStrike = function () {
 ScoreCard.prototype.resetSpare = function () {
   this._spare = false;
 };
-
-
+ScoreCard.prototype.isstrikeBonusOne = function () {
+  return this._strikeBonusOne;
+};
+ScoreCard.prototype.isstrikeBonusTwo = function () {
+  return this._strikeBonusTwo;
+};
+ScoreCard.prototype.strikeBonusOneOn = function () {
+  this._strikeBonusOne = true;
+};
+ScoreCard.prototype.strikeBonusTwoOn = function () {
+  this._strikeBonusTwo = true;
+};
+ScoreCard.prototype.strikeBonusOneOff = function () {
+  this._strikeBonusOne = false;
+};
+ScoreCard.prototype.strikeBonusTwoOff = function () {
+  this._strikeBonusTwo = false;
+};
 
 ScoreCard.prototype.throw = function (score) {
 
-  if(this.isStrike() && this.balls()===2){
+
+  // if(score === 10 && this.balls()===2 && this.isstrikeBonusOne()===false){
+  //   this.strikeBonusOneOn();
+  //   this.strikeBonusTwoOn();
+  //   this._playerLog.push(10);
+  //   this.removeFrame();
+
+  // if(this.isStrike() && this.balls()===2){
+  //   this._playerLog.push(score);
+  //   this._playerLog.push(10);
+  //   this.removeFrame();
+  //   this.playerStrike();
+    // if(score === 10 && this.balls()===2 ){
+    //   this._playerLog.push(score);
+    //   this._playerLog.push(10);
+    // }
+
+  if (this.lastGo === 10 && this.lastLastGo === 10) {
+    // this is going to be the code for a player throwing a player a strikeBonusOneOff
     this._playerLog.push(10);
-    this._playerLog.push(score);
-    this.throwBall();
+    this._playerLog.push(10);
+    this.removeFrame();
 
   }
-  else if(this.isSpare() && this.balls()===0){
-    //this._playerLog.push(score);
+  else if (this.lastGo === 10 && this.lastLastGo !== 10) {
+    // this is going to be the code for a player throwing a player a strikeBonusOneOff
     this._playerLog.push(10);
-    this._playerLog.push(score);
+    
     this.removeFrame();
-    this.addBall();
-  }
 
-  // else if (this.spare()) {
-  //
-  // }
-  else if(this.balls()=== 0) {
-    this._playerLog.push(score);
-    this.removeFrame();
-    this.resetBalls();
- }
+  }
+//   else if(this.isstrikeBonusOne()){
+//     this._playerLog.splice([this._playerLog.length -1],0,(score));
+//     this._playerLog.push(score);
+//     this.strikeBonusOneOff();
+//     this.throwBall();
+// }
+// else if (this.isstrikeBonusTwo()) {
+//     this._playerLog.splice([this._playerLog.length -2],0,(score));
+//     this._playerLog.push(score);
+//     this.strikeBonusTwoOff();
+//     this.removeFrame();
+//     this.resetBalls();
+//
+// }
+
+ //  else if(this.strike() && this.balls()===2) {
+ //
+ //    this._playerLog.push(10);
+ //    this.throwBall();
+ //  }
+ //  else if(this.strike() && this.balls()===1) {
+ //    this._playerLog.push(score);
+ //    this._playerLog.push(10);
+ //    this.throwBall();
+ //    this.resetStrike();
+ //    this.removeFrame();
+ //  }
+ //
+ //  else if(this.isSpare() && this.balls()===2){
+ //    //this._playerLog.push(score);
+ //    this._playerLog.push(10);
+ //    this._playerLog.push(score);
+ //    this.removeFrame();
+ //    this.addBall();
+ //  }
+ //
+ //  // else if (this.spare()) {
+ //  //
+ //  // }
+ //  else if(this.balls()=== 1) {
+ //    this._playerLog.push(score);
+ //    this.removeFrame();
+ //    this.resetBalls();
+ // }
   else{
     this._playerLog.push(score);
     this.throwBall();
