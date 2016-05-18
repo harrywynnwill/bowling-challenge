@@ -67,10 +67,10 @@ ScoreCard.prototype.resetBalls = function (){
   this._balls = 2;
 };
 ScoreCard.prototype.isTwoBallsToThrow = function (){
-  this._balls === 2;
+  return this._balls === 2;
 };
 ScoreCard.prototype.isOneBallToThrow = function (){
-  this._balls === 1;
+  return this._balls === 1;
 };
 ScoreCard.prototype.addBall = function (){
   this._balls += 1;
@@ -108,16 +108,18 @@ ScoreCard.prototype.strikeBonusTwoOff = function () {
 };
 
 ScoreCard.prototype.throw = function (score) {
-  if(isTwoBallsToThrow()){
-  this._currentGo.push(score);
-  this.throwBall();
+  if(this.isTwoBallsToThrow()){
+    this._currentGo.push(score);
+    this.throwBall();
 }
-else if (isOneBallsToThrow()){
+else if (this.isOneBallToThrow()){
   this._currentGo.push(score);
   this.removeFrame();
   this.resetBalls();
-}
-
+  this.playerLog().push(this._currentGo);
+  this._currentGo = [];
+  }
+};
   // if(score === 10 && this.balls()===2 && this.isstrikeBonusOne()===false){
   //   this.strikeBonusOneOn();
   //   this.strikeBonusTwoOn();
@@ -197,4 +199,3 @@ else if (isOneBallsToThrow()){
   //   this._playerLog.push(score);
   //   this.throwBall();
   // }
-};
