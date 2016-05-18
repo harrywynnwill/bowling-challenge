@@ -2,12 +2,14 @@ function ScoreCard() {
   this._frames = 9;
   this._balls = 2;
   this._strike = false;
+  this._spare = false;
   this._strikeBonusOne = false;
   this._strikeBonusTwo = false;
-  this._spare = false;
   this._playerLog = [];
+  this._currentGo = [];
   var strikeBall = 0;
   var strikeBall = 2;
+
 
 }
 
@@ -64,6 +66,12 @@ ScoreCard.prototype.spare = function (){
 ScoreCard.prototype.resetBalls = function (){
   this._balls = 2;
 };
+ScoreCard.prototype.isTwoBallsToThrow = function (){
+  this._balls === 2;
+};
+ScoreCard.prototype.isOneBallToThrow = function (){
+  this._balls === 1;
+};
 ScoreCard.prototype.addBall = function (){
   this._balls += 1;
 };
@@ -100,7 +108,15 @@ ScoreCard.prototype.strikeBonusTwoOff = function () {
 };
 
 ScoreCard.prototype.throw = function (score) {
-
+  if(isTwoBallsToThrow()){
+  this._currentGo.push(score);
+  this.throwBall();
+}
+else if (isOneBallsToThrow()){
+  this._currentGo.push(score);
+  this.removeFrame();
+  this.resetBalls();
+}
 
   // if(score === 10 && this.balls()===2 && this.isstrikeBonusOne()===false){
   //   this.strikeBonusOneOn();
@@ -118,20 +134,21 @@ ScoreCard.prototype.throw = function (score) {
     //   this._playerLog.push(10);
     // }
 
-  if (this.lastGo === 10 && this.lastLastGo === 10) {
-    // this is going to be the code for a player throwing a player a strikeBonusOneOff
-    this._playerLog.push(10);
-    this._playerLog.push(10);
-    this.removeFrame();
+  // if (this.lastGo === 10 && this.lastLastGo === 10) {
+  //   // this is going to be the code for a player throwing a player a strikeBonusOneOff
+  //   this._playerLog.push(10);
+  //   this._playerLog.push(10);
+  //   this.removeFrame();
+  //
+  // }
+  // else if (this.lastGo === 10 && this.lastLastGo !== 10) {
+  //   // this is going to be the code for a player throwing a player a strikeBonusOneOff
+  //   this._playerLog.push(10);
+  //
+  //   this.removeFrame();
+  //
+  // }
 
-  }
-  else if (this.lastGo === 10 && this.lastLastGo !== 10) {
-    // this is going to be the code for a player throwing a player a strikeBonusOneOff
-    this._playerLog.push(10);
-    
-    this.removeFrame();
-
-  }
 //   else if(this.isstrikeBonusOne()){
 //     this._playerLog.splice([this._playerLog.length -1],0,(score));
 //     this._playerLog.push(score);
@@ -160,13 +177,13 @@ ScoreCard.prototype.throw = function (score) {
  //    this.removeFrame();
  //  }
  //
- //  else if(this.isSpare() && this.balls()===2){
- //    //this._playerLog.push(score);
- //    this._playerLog.push(10);
- //    this._playerLog.push(score);
- //    this.removeFrame();
- //    this.addBall();
- //  }
+  // else if(this.isSpare() && this.balls()===2){
+  //   //this._playerLog.push(score);
+  //   this._playerLog.push(10);
+  //   this._playerLog.push(score);
+  //   this.removeFrame();
+  //   this.addBall();
+  // }
  //
  //  // else if (this.spare()) {
  //  //
@@ -176,8 +193,8 @@ ScoreCard.prototype.throw = function (score) {
  //    this.removeFrame();
  //    this.resetBalls();
  // }
-  else{
-    this._playerLog.push(score);
-    this.throwBall();
-  }
+  // else{
+  //   this._playerLog.push(score);
+  //   this.throwBall();
+  // }
 };

@@ -7,18 +7,23 @@ $(document).ready(function(){
   $('#total').text(scoreCard.playerTotal());
 
 
-  function addScoreToTable(score) {
-    var table = document.getElementById('score-table');
-    for (var i = 0; scoreCard.playerLog().length; i++){
+  // function addScoreToTable(score) {
+  //   var table = document.getElementById('score-table');
+  //
+  //   for (var i = 0; i < scoreCard.playerLog().length; i++){
+  //
+  //     var scoreToAdd = scoreCard.playerLog()[i];
+  //     var cell = document.createElement('td');
+  //     cell.innerHTML = scoreToAdd;
+  //       row.appendChild(cell);
+  //   }
+  //   table.appendChild(row);
+  // }
 
-      var scoreToAdd = scoreCard.playerLog()[i];
-      var cell = document.createElement('td');
-      cell.innerHTML = scoreToAdd;
-        row.appendChild(cell);
-    }
-    table.appendChild(row);
-  }
-
+  // function addScoreToTable() {
+  //   var table = $('#score-table');
+  //   for (var i=0; i < )
+  // }
 
 
   function updateScore(){
@@ -50,11 +55,15 @@ function displayScore(){
   for (var i = 0; i < arrayScore.length; i ++) {
     newHTML = newHTML + '<span>' + arrayScore[i] + " " + '</span>';
   }
-  $("#array-score").html(newHTML);
-
+  $("#array-score").append(newHTML);
 }
-
-
+function addScoreToTable(){
+  var table = arrayToTable(scoreCard.playerLog(), {
+    thead: true,
+    attrs: {class: 'table'}
+  })
+  $('body').append(table);
+}
   $('#enter-score').submit(function(event){
     event.preventDefault();
     var scoreBowl = parseInt($('#score-for-bowl').val());
@@ -62,9 +71,9 @@ function displayScore(){
     updateScore();
     updateFrame();
     updateBalls();
-    displayScore();
+     displayScore();
     updateTotal();
-    addScoreToTable(5);
+    addScoreToTable()
 
   });
 

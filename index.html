@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="interface.js"></script>
+    <script src="arrayToTable.js">
+
+    </script>
     <link rel="stylesheet" href="stylesheet.css">
 
     <script src="src/ScoreCard.js"></script>
@@ -18,7 +21,7 @@
       <div id="score-table-div">
 
 
-      <table id="score-table">
+      <table class="score-table">
         <tr>
 
             <td>
@@ -48,23 +51,17 @@
       </table>
   </div>
     </div>
+    last score:
     <div id="score">
-      <p>
-        last score:
-      </p>
     </div>
+    frames:
     <div id="frames">
-      <p>
-        frames:
-      </p>
 
     </div>
+    balls remaining in the frame:
     <div id="balls">
-      <p>
-        balls remaining in the frame:
-      </p>
-
     </div>
+    Please enter score:
       <form id="enter-score">
         <input id="score-for-bowl" type="number" placeholder="Enter score"></input>
         <input type="submit"></input>
