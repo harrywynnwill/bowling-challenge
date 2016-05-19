@@ -32,4 +32,33 @@ describe('ScoreCard', function(){
     scorecard.playersThrow(10);
     expect(scorecard._balls).toEqual(0);
   })
-})
+  it('a players maximum score is 300', function(){
+    for (var i; i < 21; i++){
+      scoreCard.throw(10);
+    }
+    expect(scorecard.playerTotal()).toEqual(300);
+  });
+
+  describe('bonus', function(){
+  it('can recognise if a player has scored a spare', function(){
+    scorecard.throw(5);
+    scorecard.throw(5);
+    expect(scorecard.isSpare()).toBe(true);
+  });
+  it('will return false if the last go was not a spare', function(){
+    scorecard.throw(6);
+    scorecard.throw(3);
+    expect(scorecard.isSpare()).toBe(false);
+  })
+  it('can recognise if a player has scored a strike', function(){
+    scorecard.throw(10);
+    expect(scorecard.isStrike()).toBe(true);
+  });
+  it('will return false if the last go was not a spare', function(){
+    scorecard.throw(1);
+    scorecard.throw(10);
+    expect(scorecard.isStrike()).toBe(false);
+  })
+ })
+
+});

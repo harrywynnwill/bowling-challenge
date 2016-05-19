@@ -41,14 +41,24 @@ ScoreCard.prototype.lastGo = function () {
 ScoreCard.prototype.lastLastGo = function () {
   return this._playerLog[this._playerLog.length -2]
 };
-
 ScoreCard.prototype.isSpare = function () {
-  return this.lastGo() + this.lastLastGo() === 10;
+  var totalForGo = 0;
+  for (var i = 0; i < this.lastGo().length; i++){
+    totalForGo += this.lastGo()[i];
+  }
+  return totalForGo === 10;
+};
+ScoreCard.prototype.isStrike = function () {
+  return this.lastGo().length === 1
 };
 
-ScoreCard.prototype.isStrike = function () {
-  return this.lastGo() === 10;
-};
+// ScoreCard.prototype.isSpare = function () {
+//   return this.lastGo() + this.lastLastGo() === 10;
+// };
+
+// ScoreCard.prototype.isStrike = function () {
+//   return this.lastGo() === 10;
+// };
 
 
 ScoreCard.prototype.frames = function (){
@@ -119,8 +129,15 @@ else if (this.isOneBallToThrow()){
   this.playerLog().push(this._currentGo);
   this._currentGo = [];
   }
+  // else if(this.isSpare() && this.balls()===2){
+  //   //this._playerLog.push(score);
+  //   this._playerLog.push(10);
+  //   this._playerLog.push(score);
+  //   this.removeFrame();
+  //   this.addBall();
+  // }
 };
-  // if(score === 10 && this.balls()===2 && this.isstrikeBonusOne()===false){
+  //if(score === 10 && this.balls()===2 && this.isstrikeBonusOne()===false){
   //   this.strikeBonusOneOn();
   //   this.strikeBonusTwoOn();
   //   this._playerLog.push(10);
@@ -179,13 +196,6 @@ else if (this.isOneBallToThrow()){
  //    this.removeFrame();
  //  }
  //
-  // else if(this.isSpare() && this.balls()===2){
-  //   //this._playerLog.push(score);
-  //   this._playerLog.push(10);
-  //   this._playerLog.push(score);
-  //   this.removeFrame();
-  //   this.addBall();
-  // }
  //
  //  // else if (this.spare()) {
  //  //

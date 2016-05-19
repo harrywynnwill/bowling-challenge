@@ -57,6 +57,17 @@ function displayScore(){
   }
   $("#array-score").append(newHTML);
 }
+function spare(){
+  if(scoreCard.isSpare()){
+    $('#spare').text("SPARE!");
+  }
+
+
+}
+
+
+
+
 function addScoreToTable(){
   var table = arrayToTable(scoreCard.playerLog(), {
     thead: true,
@@ -74,7 +85,7 @@ function addScoreToTable(){
      displayScore();
     updateTotal();
     addScoreToTable()
-
+    spare()
   });
 
 
