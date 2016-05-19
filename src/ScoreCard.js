@@ -1,4 +1,4 @@
-function ScoreCard() {
+function ScoreCard(frame) {
   this._frames = 9;
   this._pins = 10
   this._balls = 2;
@@ -8,6 +8,7 @@ function ScoreCard() {
   this._strikeBonusTwo = false;
   this._playerLog = [];
   this._currentGo = [];
+  this._frame=frame;
   var strikeBall = 0;
   var strikeBall = 2;
 
