@@ -15,8 +15,8 @@ th, td {
   border: 1px solid black;
   padding: 15px;
 }
-#spare {
-
+#bonus {
+  padding: 15px;
   font-size: 20px;
   font-family: serif;
 }

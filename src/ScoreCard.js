@@ -1,5 +1,6 @@
 function ScoreCard() {
   this._frames = 9;
+  this._pins = 10
   this._balls = 2;
   this._strike = false;
   this._spare = false;
@@ -32,6 +33,9 @@ ScoreCard.prototype.throwBall = function () {
 ScoreCard.prototype.playerLog = function () {
   return this._playerLog;
 };
+ScoreCard.prototype.currentGo = function () {
+  return this._currentGo;
+};
 ScoreCard.prototype.lastBowl = function () {
   return this.playerLog()[this.playerLog().length-1]
 };
@@ -49,7 +53,14 @@ ScoreCard.prototype.isSpare = function () {
   return totalForGo === 10;
 };
 ScoreCard.prototype.isStrike = function () {
-  return this.lastGo().length === 1
+  return this.lastGo().length === 1 && this.lastGo()[0]===10;
+};
+
+
+
+
+ScoreCard.prototype.isNotStrike = function () {
+  return this.lastGo() === undefined || this.lastGo()[0]!==10;
 };
 
 // ScoreCard.prototype.isSpare = function () {
@@ -118,7 +129,15 @@ ScoreCard.prototype.strikeBonusTwoOff = function () {
 };
 
 ScoreCard.prototype.throw = function (score) {
-  if(this.isTwoBallsToThrow()){
+if (this.isTwoBallsToThrow() && score === 10){
+  this._currentGo.push(score);
+  this.playerLog().push(this._currentGo);
+  this.removeFrame();
+  this.resetBalls();
+}
+
+
+else if(this.isTwoBallsToThrow()){
     this._currentGo.push(score);
     this.throwBall();
 }

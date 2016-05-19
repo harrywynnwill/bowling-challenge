@@ -59,13 +59,19 @@ function displayScore(){
 }
 function spare(){
   if(scoreCard.isSpare()){
-    $('#spare').text("SPARE!");
+    $('#bonus').text("SPARE!");
   }
-
-
 }
-
-
+function strike(){
+  if(scoreCard.isStrike()){
+    $('#bonus').text("STRIKE!");
+  }
+}
+// function isNotStrike(){
+//   if(scoreCard.isNotStrike()){
+//     $('#bonus').text("");
+//   }
+// }
 
 
 function addScoreToTable(){
@@ -84,8 +90,10 @@ function addScoreToTable(){
     updateBalls();
      displayScore();
     updateTotal();
-    addScoreToTable()
-    spare()
+    addScoreToTable();
+    spare();
+    strike();
+    //isNotStrike();
   });
 
 
