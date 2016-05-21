@@ -4,31 +4,24 @@
     <meta charset="utf-8">
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="interface.js"></script>
+    <script src="src/frame.js"></script>
     <script src="arrayToTable.js">
 
     </script>
     <link rel="stylesheet" href="stylesheet.css">
 
-    <script src="src/frame.js"></script>
     <script src="src/ScoreCard.js"></script>
     <title>Bowling ScoreCard</title>
   </head>
   <body>
-    <div id="total">
-
-    </div>
-    BONUS:
-    <div id="bonus">
-
-    </div>
-    <div id="array-score">
-      score card:
-      <div id="score-table-div">
-
-
+    <div id="total"></div>
+      <p> BONUS:</p>
+    <div id="bonus"></div>
+      <p>score card:</p>
+    <div id="array-score"> </div>
+    <div id="score-table-div">
       <table class="score-table">
         <tr>
-
             <td>
               <td>
                 <td>
@@ -39,7 +32,6 @@
                           <td>
                             <td>
                               <td>
-
                               </td>
                             </td>
                           </td>
@@ -50,26 +42,37 @@
                 </td>
               </td>
             </td>
-
         </tr>
-
       </table>
-  </div>
     </div>
-    last score:
+
+      <p>last score:</p>
     <div id="score">
     </div>
-    frames:
-    <div id="frames">
 
+      <p> frames:</p>
+    <div id="frames">
     </div>
-    balls remaining in the frame:
+    <p>balls remaining in the frame:</p>
     <div id="balls">
     </div>
+    <p>Pins:</p>
+    <div id="pins">
+    </div>
+
+
+  <div class="score-list">
+    <ul>
+      <li></li>
+    </ul>
+  </div>
+
+
+
     Please enter score:
       <form id="enter-score">
         <input id="score-for-bowl" type="number" placeholder="Enter score"></input>
         <input type="submit"></input>
       </form>
-    </body>
+  </body>
 </html>
