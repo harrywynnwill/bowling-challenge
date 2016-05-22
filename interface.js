@@ -52,8 +52,8 @@ $(document).ready(function(){
 
     function addToList(){
       var score = scoreCard.lastGo();
-      var newScore = $('<li>'+ score+ '</li>');
-      $('li:last').after(newScore);
+      var newScore = $('<td>'+ score +'</td>');
+      $('tr:last').after(newScore);
     }
 
 

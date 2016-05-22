@@ -120,24 +120,7 @@ ScoreCard.prototype.throw = function (score) {
     this._currentGo = [];
     this.removeFrame();
     this._frame.resetBalls();
-
   }
-  // else if(this._frame.isTwoBallsToThrow() && this.isSpare()===true){
-  //   this._currentGo.push(score);
-  //   this._frame.removePin(score);
-  //   this._frame.removeBall();
-  //   this.lastFrame().splice([this.lastFrame().length],0,(score))
-  // }
-  // else if (this._frame.isOneBallToThrow() && this.isSpare()===true){
-  //   this._currentGo.push(score);
-  //   this._frame.removePin(score);
-  //   this.removeFrame();
-  //   this._frame.resetBalls();
-  //   this.playerLog().push(this._currentGo);
-  //   this._currentGo = [];
-  //   this._frame.resetPins();
-  //
-  // }
   else if(this._frame.isTwoBallsToThrow() && this.isStrike()===true || this.isSpare()===true){
     this._currentGo.push(score);
     this._frame.removePin(score);
