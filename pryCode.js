@@ -37,7 +37,7 @@ scorecard.isSpare();
 
 frame = new Frame();
 scorecard = new ScoreCard(frame);
-scorecard.throw(4);
+scorecard.throw(5);
 scorecard.throw(5);
 scorecard.throw(4);
 scorecard.throw(5);
@@ -67,3 +67,33 @@ for( var i = 0; i < scorecard._playerLog.length ; i++){
    last = scorecard._playerLog[i][scorecard._playerLog[i].length-1];
 }
 last;
+
+
+frame = new Frame();
+scorecard = new ScoreCard(frame);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+scorecard.throw(10);
+
+scorecard.isStrike()
+scorecard.playerLog()[scorecard.playerLog().length-1][0]
+
+frame = new Frame();
+scorecard = new ScoreCard(frame);
+scorecard.throw(5);
+scorecard.throw(5);
+
+
+frame = new Frame();
+scorecard = new ScoreCard(frame);
+for (var i=0; i < 5; i++){
+    scorecard.throw(5);
+    scorecard.throw(5);
+  }

@@ -1,7 +1,7 @@
 function ScoreCard(frame) {
   this._frames = 10;
-  this._playerLog = [];
-  this._currentGo = [];
+  this._playerLog = [0];
+  this._currentGo = [0];
   this._frame = frame;
   var strikeBall = 0;
   var strikeBall = 2;
@@ -49,10 +49,10 @@ ScoreCard.prototype.lastFrame = function () {
 
 
 ScoreCard.prototype.lastGo = function () {
-  if(this.currentGo().length === 0 && this.playerLog().length ===0){
+  if(this.currentGo() == 0 && this.playerLog() == 0){
     return "its a new game no balls played";
   }
-  else if(this.currentGo().length === 0 && this.playerLog().length !==0) {
+  else if(this.currentGo() == 0 && this.playerLog().length >= 2) {
     var last =0;
     for( var i = 0; i < this._playerLog.length ; i++){
        last = this._playerLog[i][this._playerLog[i].length-1];
@@ -60,40 +60,43 @@ ScoreCard.prototype.lastGo = function () {
     return last;
     //return this._playerLog[this._playerLog.length -1];
   }
-return this.currentGo()[0];
+  else{
+    return this.currentGo()[this.currentGo().length -1];
+  }
 };
 
 // ScoreCard.prototype.lastLastGo = function () {
 //   return this._playerLog[this._playerLog.length -2]
 // };
 ScoreCard.prototype.isSpare = function () {
-  if(this.lastGo()=== undefined){
+  if(this.currentGo() == 0 && this.playerLog() == 0){
     return false
   }
   else {
-  var totalForGo = 0;
-  for (var i = 0; i < this.lastGo().length; i++){
-    totalForGo += this.lastGo()[i];
-  }
-  return totalForGo === 10;
-}
-};
-ScoreCard.prototype.isStrike = function () {
-  if(this.lastGo()=== undefined){
-    return false
-  }
-  else {
-  return this.playerLog()[this.playerLog().length-1][0] === 10;
-}
-};
-ScoreCard.prototype.isSpare = function () {
-  if(this.lastGo()=== undefined){
-    return false
-  }
-  else {
+  // var totalForGo = 0;
+  // for (var i = 0; i < this.lastGo().length; i++){
+  //   totalForGo += this.lastGo()[i];
+  // }
+  // return totalForGo === 10;
   return this.lastFrameTotal() === 10;
 }
 };
+ScoreCard.prototype.isStrike = function () {
+  if(this.lastGo()=== "its a new game no balls played"){
+    return false
+  }
+  else {
+  return this.playerLog()[this.playerLog().length-1][this.playerLog().length-1] === 10;
+}
+};
+// ScoreCard.prototype.isSpare = function () {
+//   if(this.lastGo()=== undefined){
+//     return false
+//   }
+//   else {
+//   return this.lastFrameTotal() === 10;
+// }
+// };
 // ScoreCard.prototype.isNotStrike = function () {
 //   return this.lastGo() === undefined || this.lastGo()[0]!==10;
 // };
@@ -110,7 +113,8 @@ ScoreCard.prototype.lastFrameFirstBall = function (){
 
 
 ScoreCard.prototype.throw = function (score) {
-  if (this._frame.isTwoBallsToThrow() && score === 10){
+
+  if (this._frame.isTwoBallsToThrow() && score === 10 && this.isStrike()===false){
     this._currentGo.push(score);
     this.playerLog().push(this._currentGo);
     this._currentGo = [];
@@ -118,15 +122,45 @@ ScoreCard.prototype.throw = function (score) {
     this._frame.resetBalls();
 
   }
+  // else if(this._frame.isTwoBallsToThrow() && this.isSpare()===true){
+  //   this._currentGo.push(score);
+  //   this._frame.removePin(score);
+  //   this._frame.removeBall();
+  //   this.lastFrame().splice([this.lastFrame().length],0,(score))
+  // }
+  // else if (this._frame.isOneBallToThrow() && this.isSpare()===true){
+  //   this._currentGo.push(score);
+  //   this._frame.removePin(score);
+  //   this.removeFrame();
+  //   this._frame.resetBalls();
+  //   this.playerLog().push(this._currentGo);
+  //   this._currentGo = [];
+  //   this._frame.resetPins();
+  //
+  // }
+  else if(this._frame.isTwoBallsToThrow() && this.isStrike()===true || this.isSpare()===true){
+    this._currentGo.push(score);
+    this._frame.removePin(score);
+    this._frame.removeBall();
+    this.lastFrame().splice([this.lastFrame().length],0,(score))
+  }
+  else if (this._frame.isOneBallToThrow() && this.isStrike()===true){
+    this._currentGo.push(score);
+    this._frame.removePin(score);
+    this.removeFrame();
+    this._frame.resetBalls();
+    this.lastFrame().splice([this.lastFrame().length],0,(score))
+    this.playerLog().push(this._currentGo);
+    this._currentGo = [];
+    this._frame.resetPins();
 
+  }
   else if(this._frame.isTwoBallsToThrow()){
     this._currentGo.push(score);
     this._frame.removePin(score);
     this._frame.removeBall();
-    if(this.lastFrameFirstBall()==10 && this.lastFrame().length < 3){
-          this.lastFrame().splice([this.lastFrame().length],0,(score))
-      }
   }
+
   else if (this._frame.isOneBallToThrow()){
     this._currentGo.push(score);
     this._frame.removePin(score);
@@ -135,6 +169,7 @@ ScoreCard.prototype.throw = function (score) {
     this.playerLog().push(this._currentGo);
     this._currentGo = [];
     this._frame.resetPins();
+
     // if(this.lastFrame()[0]==10 && this.lastFrame().length < 3){
     //     this.lastFrame().splice([this.lastFrame().length],0,(score))
     // }

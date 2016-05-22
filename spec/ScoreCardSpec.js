@@ -38,17 +38,25 @@ describe('ScoreCard', function(){
 
 
 
-  it('if player throws a strike they have no more balls to throw for the frame', function(){
+  it('if player throws a strike the frame, balls and pins are reset', function(){
     scorecard.throw(10);
-    expect(scorecard._frame._balls).toEqual(0);
+    expect(scorecard._frame._balls).toEqual(2);
+    expect(scorecard._frames).toEqual(9);
+    expect(scorecard._frame._pins).toEqual(10);
   })
   it('a players maximum score is 300', function(){
-    for (var i; i < 13; i++){
-      scoreCard.throw(10);
+    for (var i=0; i < 13; i++){
+      scorecard.throw(10);
     }
     expect(scorecard.playerTotal()).toEqual(300);
   });
-
+  it('a player throws a spare every frame knocking down 5 pins', function(){
+    for (var i=0; i < 10; i++){
+      scorecard.throw(5);
+      scorecard.throw(5);
+    }
+    expect(scorecard.playerTotal()).toEqual(150);
+  });
 
   describe('#lastGo', function(){
   it('returns the last score after 1 ball rolled', function(){
@@ -69,8 +77,26 @@ describe('ScoreCard', function(){
     expect(scorecard.lastGo()).toEqual(10);
   });
 });
-
-
+  describe('#lastFrameTotal', function(){
+  it('returns the total after 2 balls rolled', function(){
+    scorecard.throw(5);
+    scorecard.throw(5);
+    expect(scorecard.lastFrameTotal()).toEqual(10);
+  });
+  it('returns the total after a strike', function(){
+    scorecard.throw(5);
+    scorecard.throw(5);
+    scorecard.throw(10);
+    expect(scorecard.lastFrameTotal()).toEqual(10);
+  });
+  // it('returns the total after a strike and another ball thrown', function(){
+  //   scorecard.throw(5);
+  //   scorecard.throw(5);
+  //   scorecard.throw(10);
+  //   scorecard.throw(1);
+  //   expect(scorecard.lastFrameTotal()).toEqual(10);
+  // });
+});
 
 
   describe('bonus', function(){
@@ -84,13 +110,20 @@ describe('ScoreCard', function(){
     scorecard.throw(3);
     expect(scorecard.isSpare()).toBe(false);
   })
-  it('can recognise if a player has scored a strike', function(){
+  it('will return true if a player rolls a strike', function(){
     scorecard.throw(10);
     expect(scorecard.isStrike()).toBe(true);
   });
-  it('will return false if the last go was not a strike', function(){
-    scorecard.throw(1);
+  it('will return true if one ball rolled after a strike ball', function(){
     scorecard.throw(10);
+    scorecard.throw(1);
+
+    expect(scorecard.isStrike()).toBe(true);
+  })
+  it('will return false after two balls rolled after a strike ball', function(){
+    scorecard.throw(10);
+    scorecard.throw(1);
+    scorecard.throw(1);
     expect(scorecard.isStrike()).toBe(false);
   })
  })
